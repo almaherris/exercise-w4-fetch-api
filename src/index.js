@@ -19,18 +19,37 @@ const types = document.getElementById("types");
 //    logs the results in the console.
 //    HINT --> Don't forget to invoke the function
 
-const fetchPokemons = () => {
+
+//const fetchPokemons = () => {
   /*Fetch all pokemons here*/
-};
+  /*fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
+  .then((response) => {
+    return response.json()
+  })
+  .then((json) => {
+    json.results.forEach((pokemon) => {
+      console.log(pokemon.name)
+  })
+});
+}
+
+fetchPokemons()*/
+
 
 // 2) a) As you can see, we get some metadata as well as
 //    the results of the fetch. Change the console.log so
 //    that you only log the array of pokemon objects.
 
+//Changed from console.log(json) to console.log(json.results)
+
 //    b) Log only the name of the first pokemon in the
 //    pokemon objects array
 
+//Changed from console.log(json.results) to console.log(json.results[0].name) 
+
 //    c) Log the names of all pokemons in the array
+
+//Changed to forEach pokemon -> log pokemon name
 
 // 3) You might know that there are more than 20 pokemons
 //    in the pokedex. Add a query parameter
@@ -39,15 +58,36 @@ const fetchPokemons = () => {
 //    and pick a pokemon that you would like to continue
 //    working with. Copy the pokemon's URL.
 
+//https://pokeapi.co/api/v2/pokemon/25/ pikachu
+
 // 4) Now that we've picked a pokemon, we will do a new fetch
 //    to the URL we copied. Since that's another endpoint,
 //    we will create a new fetch inside the fetchBulbasaurData
 //    function (change the function's name to fit your pokemon).
 //    Log the data in the console and see what you find.
 
-const fetchBulbasaurData = () => {
-  /*Fetch singular pokemon here*/
+const fetchPikachuData = () => {
+fetch('https://pokeapi.co/api/v2/pokemon/25/')
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+console.log(json)
+image.src = json.sprites.front_default;
+
+//InnerHTML modification
+//Test textContent instead of innerHTML
+name.textContent = json.name
+//Test innerText instead of innerHTML
+weight.innerText = json.weight
+height.innerHTML = json.height
+//types.innerText = json.types[0].type.name
+//updated code for scenarios where the pokemon might have several types
+types.innerHTML = json.types.map(type => type.type.name).join(', ')
+})
 };
+
+fetchPikachuData()
 
 // 5) After familiarizing with the data, we will use the data
 //    to change our table. We will give you the image as a start.
@@ -57,10 +97,13 @@ const fetchBulbasaurData = () => {
 //    Copy that line into the fetchBulbasaurData and hopefully
 //    the image in the HTML updates.
 
+//Added image
+
 // 6) Update the innerHTML of the other rows as well after
 //    you've found the correct path in the json.
 //    HINT --> Log stuff in the console to try things out
 //    HINT --> If it's an array - map over the array
+
 
 // ***BONUS***
 // Check out the API's documentation and try to fetch from another
